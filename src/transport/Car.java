@@ -1,37 +1,42 @@
 package transport;
 
-import java.time.LocalDate;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class Car extends Transport {
-    private String brand;
-    private String model;
-    private double engineVolume;
+public class Car extends Transport implements Competing{
 
     public Car(String brand, String model, double engineVolume) {
         super(brand, model, engineVolume);
     }
 
-    @Override
-    public String getBrand() {
-        return brand;
-    }
-
-    @Override
-    public String getModel() {
-        return model;
-    }
-
-    public double getEngineVolume() {
-        return engineVolume;
-    }
-
-    @Override
     public void startDriving() {
-        System.out.println("Автомобиль! Нанчи движение!");
+        System.out.printf("Автомобиль %s %s начни движение",
+                this.getBrand(),
+                this.getModel());
+    }
+    public void finishDriving() {
+        System.out.printf("Автомобиль %s %s закончи движение",
+                this.getBrand(),
+                this.getModel());
     }
 
     @Override
-    public void finishDriving() {
-        System.out.println("Автомобиль! Закончи движение!");
+    public void pitStop() {
+        System.out.printf("Автомобиль %s %s Пит-Стоп! ",
+                this.getBrand(),
+                this.getModel());
+    }
+
+    @Override
+    public int bestLapTime() {return ThreadLocalRandom.current().nextInt(1, 10);
+    }
+
+    @Override
+    public int maximumSpeed() {return  ThreadLocalRandom.current().nextInt(1,400);
+    }
+
+    public void printCar() {
+        System.out.println("Легковой автомобиль: " + getBrand()+
+                ", модель: " + getModel() +
+                ", объем двигателя: " + getEngineVolume() + " л");
     }
 }
